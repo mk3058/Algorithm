@@ -11,35 +11,25 @@
 
 class Solution {
 public:
-    stack<ListNode*> s;
-    
     ListNode* reverseList(ListNode* head) {
         
-        ListNode *reversed = nullptr;
-        
-        // When list is empty, return the original list
         if (!head) {
             return head;
         }
         
-        // push all nodes into the stack to reverse the list
-        while (head) {
-            s.push(head);
-            head = head->next;
-        }
-        
-        // Pop in the stack and reverse connect nodes
-        reversed = s.top();
-        while (true) {
-            ListNode *node = s.top();
-            s.pop();
-            if (s.empty()) {
-                node->next = nullptr;
-                break;
-            }
-            node->next = s.top();
-        }
-        
+        ListNode *reversed = nullptr;
+        reverse(head, &reversed);
         return reversed;
+    }
+    
+    ListNode *reverse(ListNode *head, ListNode **reversedHead) {
+        if (head->next) {
+            ListNode *tmp = head->next;
+            head->next = nullptr;
+            return reverse(tmp, reversedHead)->next = head;
+        } else {
+            *reversedHead = head;
+            return head;
+        }
     }
 };
