@@ -16,22 +16,24 @@ public:
         stack<ListNode *> s;
         int max = -1;
         
-        ListNode *tmp = head;
+        s.push(head);
+        ListNode *tmp = head->next;
+        int length = 1;
         while (tmp) {
-            s.push(tmp);
+            if (!(length++ % 2)) {
+                s.push(s.top()->next);
+            }
             tmp = tmp -> next;
         }
         
-        while (true) {
-            int sum = head->val + s.top()->val;
+        ListNode *middleAfter = s.top()->next;
+        while (!s.empty()) {
+            int sum = middleAfter->val + s.top()->val;
             s.pop();
             if (sum > max) {
                 max = sum;
             }
-            if (s.top() == head) {
-                break;
-            }
-            head = head->next;
+            middleAfter = middleAfter -> next;
         }
         return max;
     }
