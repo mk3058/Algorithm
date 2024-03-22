@@ -13,7 +13,7 @@
 class Solution {
 public:
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
-        vector<TreeNode *> leaves1, leaves2;
+        vector<int> leaves1, leaves2;
         
         preorderTraversal(root1, leaves1);
         preorderTraversal(root2, leaves2);
@@ -22,16 +22,16 @@ public:
             return false;
         }
         for(int i = 0; i < leaves1.size(); i++) {
-            if (leaves1[i]->val != leaves2[i]->val) {
+            if (leaves1[i] != leaves2[i]) {
                 return false;
             }
         }
         return true;
     }
     
-    void preorderTraversal(TreeNode *root, vector<TreeNode *> &leaves) {
+    void preorderTraversal(TreeNode *root, vector<int> &leaves) {
         if (!(root->left) && !(root->right)) {
-            leaves.push_back(root);
+            leaves.push_back(root->val);
         }
         if (root->left) {
             preorderTraversal(root->left, leaves);
