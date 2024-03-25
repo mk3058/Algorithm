@@ -12,21 +12,24 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        if (!head || !(head->next)) {
-            return head;
+        set<int> values;
+        
+        while (head) {
+            values.insert(head->val);
+            head = head->next;
         }
         
-        ListNode *prev = head;
-        ListNode *cur = head->next;
-        while (cur) {
-            if (prev->val == cur->val) {
-                prev->next = cur->next;
-                cur = cur->next;
+        ListNode *newList = nullptr;
+        ListNode *last = nullptr;
+        for (int value : values) { 
+            if (newList) {
+                last -> next = new ListNode(value);
+                last = last->next;
             } else {
-                prev = prev->next;
-                cur = cur->next;
+                newList = new ListNode(value);
+                last = newList;
             }
         }
-        return head;
+        return newList;
     }
 };
