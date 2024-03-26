@@ -18,24 +18,22 @@ public:
         }
         
         int goodNodes = 0;
-        
         dfs(root, INT_MIN, goodNodes);
         return goodNodes;
     }
     
     // depth-first-search by preorder traversal 
     void dfs(TreeNode *node, int max, int &goodNodeCount) {
-        int curMax = max;
         if (node->val >= max) {
-            curMax = node->val;
+            max = node->val;
             goodNodeCount++;
         }
         
         if (node->left) {
-            dfs(node->left, curMax, goodNodeCount);
+            dfs(node->left, max, goodNodeCount);
         }
         if (node->right) {
-            dfs(node->right, curMax, goodNodeCount);
+            dfs(node->right, max, goodNodeCount);
         }
     }
 };
