@@ -12,8 +12,6 @@
 
 class Solution {
 public:
-    stack<int> values;
-    
     int goodNodes(TreeNode* root) {
         if (!root) {
             return 0;
@@ -21,24 +19,23 @@ public:
         
         int goodNodes = 0;
         
-        dfs(root, goodNodes);
+        dfs(root, INT_MIN, goodNodes);
         return goodNodes;
     }
     
     // depth-first-search by preorder traversal 
-    void dfs(TreeNode *node, int &goodNodeCount) {
-        if (values.empty() || node->val >= values.top()) {
-            values.push(node->val);
+    void dfs(TreeNode *node, int max, int &goodNodeCount) {
+        int curMax = max;
+        if (node->val >= max) {
+            curMax = node->val;
             goodNodeCount++;
         }
+        
         if (node->left) {
-            dfs(node->left, goodNodeCount);
+            dfs(node->left, curMax, goodNodeCount);
         }
         if (node->right) {
-            dfs(node->right, goodNodeCount);
-        }
-        if (node->val == values.top()) {
-            values.pop();
+            dfs(node->right, curMax, goodNodeCount);
         }
     }
 };
