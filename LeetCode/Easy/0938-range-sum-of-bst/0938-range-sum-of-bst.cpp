@@ -23,9 +23,12 @@ public:
             return ;
         }
         
-        if (root->val >= low && root->val <= high)
+        if (root->val > low)
+            traverse(root->left, low, high, sum);
+        if (root->val < high)
+            traverse(root->right, low, high, sum);
+        if (low <= root->val && root->val <= high) {
             sum += root->val;
-        traverse(root->left, low, high, sum);
-        traverse(root->right, low, high, sum);
+        }
     }
 };
